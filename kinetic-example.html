@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script src="kinetic.js"></script>
+<script defer="defer">
+    var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 900,
+        height: 800
+    });
+
+    var layer = new Kinetic.Layer();
+
+    // rectangle
+    var rect = new Kinetic.Rect({
+        x: 0,
+        y: 0,
+        width: 800,
+        height: 800,
+        fill: 'teal',
+        stroke: 'black',
+        strokeWidth: 4
+    });
+    layer.add(rect);
+
+    var circle = new Kinetic.Circle({
+        x: stage.getWidth() / 2,
+        y: stage.getHeight() / 2,
+        radius: 70,
+        fill: 'red',
+        stroke: 'black',
+        strokeWidth: 4,
+        draggable: true
+    });
+    layer.add(circle);
+
+    // add the layer to the stage
+    stage.add(layer);
+
+    // bring it to the back
+//    circle.moveToBottom();
+//    layer.draw();
+
+    circle.on('click', function() {
+        alert('heyo!');
+    });
+
+    var amplitude = 150;
+    var period = 2000;
+    var centerX = stage.getWidth() / 2;
+    var anim = new Kinetic.Animation(function(frame) {
+        circle.setX(amplitude * Math.sin(frame.time * 2 * Math.PI / period) + centerX);
+        circle.setScale(Math.sin(frame.time * 2 * Math.PI / period), Math.sin(frame.time * 2 * Math.PI / period));
+    }, layer);
+    anim.start();
+
+    var smallBox = new Kinetic.Rect({
+        x: 0,
+        y: 0,
+        width: 150,
+        height: 150,
+        fill: 'orange',
+        stroke: 'orange',
+        strokeWidth: 4,
+        draggable: true
+    });
+    layer.add(smallBox);
+
+    var tween = new Kinetic.Tween({
+        node: smallBox,
+        duration: 1,
+        x: 400,
+        y: 0,
+        opacity: 1
+    });
+    setTimeout(function() {
+        tween.play();
+    }, 1000);
+
+</script>
+</body>
+</html>

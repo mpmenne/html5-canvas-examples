@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="700"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+
+    // line
+    context.beginPath();
+    context.moveTo(100, 150);
+    context.lineTo(450, 850);
+    context.lineWidth = 30;
+    context.stroke();
+
+    // another line
+    context.beginPath();
+    context.moveTo(200, 200);
+    context.lineTo(450, 850);
+    context.lineWidth = 15;
+    context.strokeStyle = '#ff0000';
+    context.stroke();
+    // it's like you are really drawing on a piece of paper
+    // no objects!
+
+    // erase line
+    context.beginPath();
+    context.moveTo(200, 200);
+    context.lineTo(450, 850);
+    context.lineWidth = 15;
+    context.strokeStyle = '#ffffff';
+    context.stroke();
+    // it's kind of tough ....
+
+
+    //  arc
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 75;
+    var startAngle = 1.1 * Math.PI;
+    var endAngle = 1.9 * Math.PI;
+    var counterClockwise = true;
+    context.beginPath();
+    context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+    context.lineWidth = 15;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    // quadratic curve
+    context.beginPath();
+    context.moveTo(188, 150);
+    context.quadraticCurveTo(288, 3, 400, 344);
+    context.lineWidth = 10;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    // bezier curve
+    context.beginPath();
+    context.moveTo(188, 130);
+    context.bezierCurveTo(140, 10, 388, 10, 388, 170);
+    context.lineWidth = 10;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    // connected curve
+    context.beginPath();
+    context.moveTo(100, 20);
+    context.lineTo(200, 160);
+    context.quadraticCurveTo(230, 200, 250, 120);
+    context.bezierCurveTo(290, -40, 300, 200, 400, 150);
+    context.lineTo(500, 90);
+    context.lineWidth = 5;
+    context.strokeStyle = 'blue';
+    context.stroke();
+
+    // rectangle
+    context.beginPath();
+    context.rect(188, 50, 200, 100);
+    context.fillStyle = 'yellow';
+    context.fill();
+    context.lineWidth = 7;
+    context.strokeStyle = 'black';
+    context.stroke();
+
+    // gradient
+    context.rect(0, 0, canvas.width, canvas.height);
+
+    // add linear gradient
+//    var grd = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+//    // light blue
+//    grd.addColorStop(0, '#8ED6FF');
+//    // dark blue
+//    grd.addColorStop(1, '#004CB3');
+//    context.fillStyle = grd;
+//    context.fill();
+
+//    var imageObj = new Image();
+//    imageObj.onload = function() {
+//        context.drawImage(imageObj, 69, 50);
+//    };
+//    imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
+
+    context.translate(300, 300);
+    context.rotate(45);
+    context.fillStyle = 'blue';
+    context.fillRect(0, 0, 200,200);
+    context.globalAlpha = .5;
+    context.fillStyle = 'orange';
+    context.font = '100px futura';
+    context.fillText('hey!', 0, 100);
+
+    context.translate(0, 0);
+    var x = 50;
+    var y = 50;
+    var radius = 75;
+    /*
+     * save() allows us to save the canvas context before
+     * defining the clipping region so that we can return
+     * to the default state later on
+     */
+    context.save();
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI, false);
+    context.clip();
+
+    // draw blue circle inside clipping region
+    context.beginPath();
+    context.arc(x - 50, y - 50, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'blue';
+    context.fill();
+
+    // draw yellow circle inside clipping region
+    context.beginPath();
+    context.arc(x + 50, y, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'yellow';
+    context.fill();
+
+    // draw red circle inside clipping region
+    context.beginPath();
+    context.arc(x, y + 50, radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'red';
+    context.fill();
+
+    /*
+     * restore() restores the canvas context to its original state
+     * before we defined the clipping region
+     */
+    context.restore();
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI, false);
+    context.lineWidth = 10;
+    context.strokeStyle = 'blue';
+    context.stroke();
+
+    context.clearRect(0, 0, 200, 200);
+
+    // I can show you animation but it's littl bit of work.....
+
+</script>
+</body>
+</html>
